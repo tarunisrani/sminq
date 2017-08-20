@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "108637090166",
+    "firebase_url": "https://sminq-caebd.firebaseio.com",
+    "project_id": "sminq-caebd",
+    "storage_bucket": "sminq-caebd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108637090166:android:31f035d14deea83f",
+        "android_client_info": {
+          "package_name": "com.tarunisrani.sminq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108637090166-sb5jideu3bheegus2sm3db5jc8tflv55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0ujU5ZEn1wD7j7-ZIgquCzGpb8gTWBwo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
