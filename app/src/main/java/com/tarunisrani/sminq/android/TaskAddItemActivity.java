@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
     private TextView task_submit;
     private TextView task_reset;
     private TextView task_edit;
+    private Switch switch1;
 
     private ArrayList<String> task_type_list;
 
@@ -48,6 +51,7 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
     private String server_task_id = "";
 
     private boolean editable = true;
+    private boolean completed = false;
 
 
     @Override
@@ -62,6 +66,7 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
         task_submit = (TextView) findViewById(R.id.task_submit);
         task_reset = (TextView) findViewById(R.id.task_reset);
         task_edit = (TextView) findViewById(R.id.task_edit);
+        switch1 = (Switch) findViewById(R.id.switch1);
 
         task_type_list = new ArrayList<>();
         task_type_list.add("Personal");
@@ -98,6 +103,13 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
         task_edit.setOnClickListener(this);
         task_date.setOnClickListener(this);
         task_reset.setOnClickListener(this);
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.e("Status", isChecked+"");
+                completed = isChecked;
+            }
+        });
     }
 
     private void processIntent(Task task){
@@ -105,6 +117,9 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
 
             task_id = task.getTask_id();
             server_task_id = task.getServer_task_id();
+            completed = task.isCompleted();
+
+            switch1.setChecked(completed);
 
             task_date.setText(task.getTask_date());
             task_date.setEnabled(false);
@@ -114,13 +129,15 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
             task_details.setEnabled(false);
             task_type_spinner.setSelection(task_type_list.indexOf(task.getTask_type()));
             task_type_spinner.setEnabled(false);
+            switch1.setEnabled(false);
 
             task_submit.setVisibility(View.GONE);
             task_reset.setVisibility(View.GONE);
             task_edit.setVisibility(View.VISIBLE);
         }
-
     }
+
+
 
     private void showDatePicker() {
 
@@ -184,10 +201,15 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
             task.setTask_details(details);
             task.setServer_task_id(server_task_id);
             task.setTask_type(selected_task_type);
+            task.setCompleted(completed);
             intent.putExtra(AppConstant.INTENT_KEY_TASK, task);
             setResult(200, intent);
             finish();
         }
+    }
+
+    private void performStatusChangeOperation(){
+        completed = !completed;
     }
 
     private void performEditOperation(){
@@ -201,6 +223,7 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
         task_details.setEnabled(true);
         task_type_spinner.setEnabled(true);
         task_type_spinner.setEnabled(true);
+        switch1.setEnabled(true);
 
 
         open_mode = OPEN_MODE_EDIT;
@@ -212,6 +235,7 @@ public class TaskAddItemActivity extends AppCompatActivity implements View.OnCli
         task_details.setText("");
         task_type_spinner.setSelection(0);
         task_type_spinner.setSelection(0);
+
     }
 
     @Override

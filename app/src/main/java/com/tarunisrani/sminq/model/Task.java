@@ -113,6 +113,7 @@ public class Task implements Parcelable {
         this.task_title = cursor.getString(cursor.getColumnIndex(TaskDataSource.COLUMN_TITLE));
         this.task_details = cursor.getString(cursor.getColumnIndex(TaskDataSource.COLUMN_DETAIL));
         this.task_type = cursor.getString(cursor.getColumnIndex(TaskDataSource.COLUMN_TASK_TYPE));
+        this.completed = cursor.getInt(cursor.getColumnIndex(TaskDataSource.COLUMN_COMPLETED)) == 1;
     }
 
     public void updateExpense(Task task){

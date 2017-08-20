@@ -33,6 +33,7 @@ public class TaskDataSource {
 //    public static final String COLUMN_AMOUNT = "expense_amount";
 //    public static final String COLUMN_EXPENSE_TYPE = "expense_type";
     public static final String COLUMN_TASK_TYPE = "task_type";
+    public static final String COLUMN_COMPLETED = "task_completed";
 
     private DatabaseHelper databaseHelper;
 
@@ -43,7 +44,8 @@ public class TaskDataSource {
             + COLUMN_DATE + " text, "
             + COLUMN_TITLE + " text, "
             + COLUMN_DETAIL + " text, "
-            + COLUMN_TASK_TYPE + " int "
+            + COLUMN_TASK_TYPE + " text, "
+            + COLUMN_COMPLETED + " int "
             +");";
 
     private static final String SQL_DELETE_ENTRIES =
@@ -52,7 +54,7 @@ public class TaskDataSource {
     private static final String SQL_CLEAN_TABLE =
             "DELETE FROM " + TABLE_NAME;
 
-    private String[] allColumns = {COLUMN_ID, COLUMN_ID_SERVER, COLUMN_DATE, COLUMN_TITLE, COLUMN_DETAIL, COLUMN_TASK_TYPE};
+    private String[] allColumns = {COLUMN_ID, COLUMN_ID_SERVER, COLUMN_DATE, COLUMN_TITLE, COLUMN_DETAIL, COLUMN_TASK_TYPE, COLUMN_COMPLETED};
 
 
     private ValueEventListener valueEventListener;
@@ -80,6 +82,7 @@ public class TaskDataSource {
         values.put(COLUMN_TITLE, task.getTask_title());
         values.put(COLUMN_DETAIL, task.getTask_details());
         values.put(COLUMN_TASK_TYPE, task.getTask_type());
+        values.put(COLUMN_COMPLETED, task.isCompleted()?1:0);
 
         long insertId = database.insert(TABLE_NAME, null,
                 values);
@@ -98,6 +101,7 @@ public class TaskDataSource {
             values.put(COLUMN_TITLE, task.getTask_title());
             values.put(COLUMN_DETAIL, task.getTask_details());
             values.put(COLUMN_TASK_TYPE, task.getTask_type());
+            values.put(COLUMN_COMPLETED, task.isCompleted()?1:0);
             long insertId = database.insert(TABLE_NAME, null,
                     values);
             count += insertId != -1?1:0;
@@ -117,6 +121,7 @@ public class TaskDataSource {
         values.put(COLUMN_TITLE, task.getTask_title());
         values.put(COLUMN_DETAIL, task.getTask_details());
         values.put(COLUMN_TASK_TYPE, task.getTask_type());
+        values.put(COLUMN_COMPLETED, task.isCompleted()?1:0);
 
         long count = database.update(TABLE_NAME,
                 values, COLUMN_ID + " = " + DatabaseUtils.sqlEscapeString(task.getTask_id()), null);
@@ -137,6 +142,7 @@ public class TaskDataSource {
         values.put(COLUMN_TITLE, task.getTask_title());
         values.put(COLUMN_DETAIL, task.getTask_details());
         values.put(COLUMN_TASK_TYPE, task.getTask_type());
+        values.put(COLUMN_COMPLETED, task.isCompleted()?1:0);
 
         long count = 0;
         try {

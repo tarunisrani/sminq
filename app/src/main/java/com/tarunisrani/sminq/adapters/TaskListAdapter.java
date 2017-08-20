@@ -1,6 +1,7 @@
 package com.tarunisrani.sminq.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,6 +93,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Task task = mList.get(position);
         holder.setDetails(task);
+        if(task.isCompleted()){
+            holder.itemView.setBackgroundColor(Color.GREEN);
+        }
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

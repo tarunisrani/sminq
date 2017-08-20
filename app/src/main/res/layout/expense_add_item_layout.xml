@@ -111,6 +111,29 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"/>
 
+
+
         </LinearLayout>
+
+
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:text="Task Status - " />
+
+
+
+
+
+    <!--<Button
+        android:id="@+id/status_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="COMPLETED"/>-->
 
 </LinearLayout>
